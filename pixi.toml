@@ -1,0 +1,68 @@
+[workspace]
+name = "workspace"
+version = "0.1.0"
+authors = ["ian <ian.page38@gmail.com>"]
+channels = ["nvidia", "pytorch", "pyg", "conda-forge"]
+platforms = ["linux-64"]
+
+[dependencies]
+# Core Dependencies for OctreeGS Training
+python = "3.8.*" # 3.8 required by SIBR Viewer
+pip = "*" # Ensure pip is available
+pytorch = { version = ">=2.0", channel = "pytorch" }
+pytorch-cuda = { version = "12.1.*", channel = "pytorch" }
+cuda-nvcc = "12.1.*"
+cuda-toolkit = "12.1.*"
+plyfile = "*"
+tqdm = "*"
+pytorch-scatter = "*"
+
+[pypi-dependencies]
+einops = "*"
+wandb = "*"
+lpips = "*"
+laspy = "*"
+jaxtyping = "*"
+colorama = "*"
+# pytorch-scatter = "*"
+# diff-gaussian-rasterization = { path = "./submodules/diff-gaussian-rasterization", editable = true }
+# simple-knn = { path = "./submodules/simple-knn", editable = true }
+
+[tasks]
+setup-env = "python -m pip install -e submodules/diff-gaussian-rasterization -e submodules/simple-knn"
+train = { cmd = "bash single_train.sh", description = "Train OctreeGS on the configured scene" }
+
+[feature.viewer.dependencies]
+# Build Tools
+cmake = "*"
+ninja = "*"
+gxx_linux-64 = "11.*"
+gcc_linux-64 = "11.*"
+make = "*"
+pkg-config = "*"
+# Libraries
+glew = "*"
+assimp = "*"
+boost-cpp = "*"
+gtk3 = "*"
+opencv = "*"
+glfw = "*"
+ffmpeg = "*"
+eigen = "*"
+embree = "3.*"
+mesa-libgl-devel-cos7-x86_64 = "*"
+glib = "*"
+libxcrypt = "*"
+xorg-libxcomposite = "*"
+xorg-libxi = "*"
+xorg-libxtst = "*"
+
+[feature.viewer.tasks]
+configure = { cmd = "cmake -B OctreeGS-Ubuntu-Viewer/build -S OctreeGS-Ubuntu-Viewer -DCMAKE_BUILD_TYPE=Release -GNinja -DTorch_DIR=$CONDA_PREFIX/lib/python3.8/site-packages/torch/share/cmake/Torch -DCMAKE_CUDA_FLAGS='-I$CONDA_PREFIX/targets/x86_64-linux/include/cccl -DC10_CUDA_NO_CMAKE_CONFIGURE_FILE' -DCMAKE_CXX_FLAGS='-DC10_CUDA_NO_CMAKE_CONFIGURE_FILE -D_GLIBCXX_USE_CXX11_ABI=1' -DCMAKE_CUDA_ARCHITECTURES='70;75;86'", description = "Configure the build with CMake" }
+build = { cmd = "cmake --build OctreeGS-Ubuntu-Viewer/build --target install", description = "Build and install the viewer" }
+run = { cmd = "OctreeGS-Ubuntu-Viewer/install/bin/SIBR_remoteGaussian_app", description = "Run the installed viewer" }
+clean = { cmd = "rm -rf OctreeGS-Ubuntu-Viewer/build OctreeGS-Ubuntu-Viewer/install", description = "Clean build and install directories" }
+
+[environments]
+default = ["viewer"]
+

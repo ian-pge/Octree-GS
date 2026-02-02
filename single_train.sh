@@ -1,5 +1,5 @@
-scene="db/playroom"
-exp_name="baseline"
+scene="custom_car"
+exp_name="test_1"
 gpu=-1
 ratio=1
 resolution=-1

@@ -37,7 +37,53 @@ class="center">
 </p>
 
 
-## Installation
+## Installation via Pixi (Recommended)
+This project is now configured with **Pixi** for fully reproducible builds. This replaces manual system package installation.
+
+### Prerequisites
+- **NVIDIA Driver**: Ensure you have a driver compatible with CUDA 12.1 installed on your host.
+- **Pixi**: Install pixi (see https://pixi.sh).
+- **X11 Display**: A running X server is required to launch the viewer.
+
+### Quick Start
+```bash
+# 1. Clone the repo
+git clone https://github.com/city-super/Octree-GS --recursive
+cd Octree-GS
+
+# 2. Build the viewer
+pixi run configure
+pixi run build
+
+# 3. Run the viewer
+pixi run run
+```
+
+### Managed Dependencies
+Pixi manages the following automatically:
+- **Project Scope**: `cmake`, `ninja`, `gcc/g++ 11`
+- **Libraries**: `opencv`, `gtk3`, `ffmpeg` (with x264), `glew`, `assimp`, etc.
+- **CUDA**: `cuda-nvcc` (12.1), `pytorch-cuda` (12.1).
+
+## Training via Pixi
+To train on a custom dataset:
+
+1. **Prepare Data**:
+   The training script expects data in `data/<dataset_name>`. You can symlink your dataset:
+   ```bash
+   mkdir -p data
+   ln -s /path/to/your/dataset data/custom_dataset
+   ```
+
+2. **Configure**:
+   Edit `single_train.sh` to set `scene="custom_dataset"` and other parameters.
+
+3. **Train**:
+   ```bash
+   pixi run train
+   ```
+
+## Manual Installation (Legacy)
 
 We tested on a server configured with Ubuntu 18.04, cuda 11.6 and gcc 9.4.0. Other similar configurations should also work, but we have not verified each one individually.
 
