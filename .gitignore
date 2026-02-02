@@ -16,3 +16,4 @@ screenshots
 *.so# pixi environments
 .pixi/*
 !.pixi/config.toml
+datasets/
