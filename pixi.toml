@@ -31,6 +31,7 @@ colorama = "*"
 [tasks]
 setup-env = "python -m pip install -e submodules/diff-gaussian-rasterization -e submodules/simple-knn"
 train = { cmd = "bash single_train.sh", description = "Train OctreeGS on the configured scene" }
+render = { cmd = "python render.py", description = "Render output (usage: pixi run render -m <model_path>)" }
 
 [feature.viewer.dependencies]
 # Build Tools
