@@ -10,8 +10,7 @@ linux = "4.18"
 cuda = "12"
 
 [dependencies]
-# Common Core Dependencies
-pip = "*" # Ensure pip is available
+pip = "*"
 python = "*" 
 pytorch = { version = "2.1.*", channel = "pytorch" }
 pytorch-cuda = { version = "12.1.*", channel = "pytorch" }
