@@ -66,21 +66,20 @@ Pixi manages the following automatically:
 - **CUDA**: `cuda-nvcc` (12.1), `pytorch-cuda` (12.1).
 
 ## Training via Pixi
-To train on a custom dataset:
 
-1. **Prepare Data**:
-   The training script expects data in `data/<dataset_name>`. You can symlink your dataset:
+1. **Train on a Dataset:**
+   You can provide the absolute path to your dataset using the `--scene` flag. The dataset directory should be in the standard Colmap/OctreeGS format (containing `images`, `sparse`, etc.).
+   
    ```bash
-   mkdir -p data
-   ln -s /path/to/your/dataset data/custom_dataset
+   pixi run train --scene /workspace/datasets/voiture_loin/glomap_sfm/undistorted
    ```
+   
+   This command will automatically symlink your dataset into the `data/` directory and start training.
 
-2. **Configure**:
-   Edit `single_train.sh` to set `scene="custom_dataset"` and other parameters.
-
-3. **Train**:
+2. **Render Output:**
+   After training, you can render the output using the generated model path:
    ```bash
-   pixi run train
+   pixi run render -m outputs/<dataset_name>/<exp_name>/<timestamp>
    ```
 
 ## Manual Installation (Legacy)
