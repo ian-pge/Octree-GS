@@ -55,8 +55,23 @@ cd Octree-GS
 pixi run configure
 pixi run build
 
-# 3. Run the viewer
-pixi run run
+# 3. View Results
+
+## 3.1 Live Training View (Online)
+Connect to a running training session:
+```bash
+pixi run viewer-online --path /path/to/dataset
+# or
+pixi run viewer-online -s /path/to/dataset
+```
+
+## 3.2 View Trained Model (Offline)
+View a finished training result (point cloud):
+```bash
+pixi run viewer --modelPath /path/to/model/output/point_cloud/iteration_30000
+# or
+pixi run viewer -m /path/to/model/output
+```
 ```
 
 ### Managed Dependencies

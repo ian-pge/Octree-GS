@@ -30,17 +30,7 @@ done
 
 if [ ! -z "$target_path" ]; then
     echo "Setting up dataset from: $target_path"
-    mkdir -p data
-    
-    # Extract basename to use as scene name
-    scene_name=$(basename "$target_path")
-    
-    # Remove existing link/dir if it needs refresh (optional, but good for idempotency if path changed)
-    # Using -znf to force symlink update
-    ln -sfn "$target_path" "data/$scene_name"
-    
-    scene="$scene_name"
-    echo "Symlinked to data/$scene"
+    scene="$target_path"
 fi
 
 ./train.sh -d ${scene} -l ${exp_name} --gpu ${gpu} -r ${resolution} --ratio ${ratio} --appearance_dim ${appearance_dim} \
