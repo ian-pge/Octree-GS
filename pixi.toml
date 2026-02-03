@@ -2,34 +2,39 @@
 name = "workspace"
 version = "0.1.0"
 authors = ["ian <ian.page38@gmail.com>"]
-channels = ["nvidia", "pytorch", "pyg", "conda-forge"]
+channels = ["pytorch", "nvidia", "pyg", "conda-forge"]
 platforms = ["linux-64"]
 
-[system-requirements]
-linux = "4.18"
-cuda = "12"
-
 [dependencies]
-pip = "*"
-python = "*" 
-pytorch = { version = "2.1.*", channel = "pytorch" }
-pytorch-cuda = { version = "12.1.*", channel = "pytorch" }
-cuda-nvcc = "12.1.*"
-cuda-toolkit = "12.1.*"
+pytorch = "*"
+pytorch-cuda = "12.1.*"
+cuda-toolkit="12.1.*"
+cuda-nvcc = "12.1.*"        # other wise i get v13.1
+cuda-cudart-dev = "12.1.*"  # The Basic Runtime Headers
+cuda-cccl = "12.1.*"        # The Standard Library Headers (The "Screws": Thrust, CUB)
+cuda-driver-dev = "12.1.*"  # Driver headers (Just to be safe)
+
+ninja = "*"
 plyfile = "*"
+pip = "*"
+colorama = "*"
+torchaudio = "*"
+torchvision = "*"
 tqdm = "*"
 pytorch-scatter = "*"
-opencv = "*"
+jaxtyping = ">=0.3.7,<0.4"
+typeguard = ">=4.4.4,<5"
+libgl = ">=1.7.0,<2"
+glib = ">=2.80.2,<3"
 
 [pypi-dependencies]
 einops = "*"
 wandb = "*"
 lpips = "*"
 laspy = "*"
-jaxtyping = "*"
-colorama = "*"
+opencv-python = ">=4.13.0.90, <5"
 
 [tasks]
-setup-env = "python -m pip install -e submodules/diff-gaussian-rasterization -e submodules/simple-knn"
+setup-env = "CUDA_HOME=$CONDA_PREFIX python -m pip install -e submodules/diff-gaussian-rasterization -e submodules/simple-knn --no-build-isolation"
 train = { cmd = "bash single_train.sh", description = "Train OctreeGS. Usage: pixi run train --scene /abs/path/to/dataset" }
 render = { cmd = "python render.py", description = "Render output (usage: pixi run render -m <model_path>)" }
