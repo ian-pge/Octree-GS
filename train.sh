@@ -2,12 +2,12 @@ function rand(){
     min=$1
     max=$(($2-$min+1))
     num=$(date +%s%N)
-    echo $(($num%$max+$min))  
+    echo $(($num%$max+$min))
 }
 
 port=$(rand 10000 30000)
 
-iterations=10_000
+iterations=30_000
 warmup="False"
 progressive="False"
 while [[ "$#" -gt 0 ]]; do
@@ -43,13 +43,13 @@ if [ "$progressive" = "True" ]; then
         --iterations ${iterations} --port $port -m outputs/${data}/${logdir}/$time --appearance_dim ${appearance_dim} \
         --visible_threshold ${visible_threshold}  --base_layer ${base_layer} --dist2level ${dist2level} --update_ratio ${update_ratio} \
         --progressive --init_level ${init_level} --dist_ratio ${dist_ratio} --levels ${levels}  \
-        --extra_ratio ${extra_ratio} --extra_up ${extra_up} --extra_up ${extra_up} --use_feat_bank
+        --extra_ratio ${extra_ratio} --extra_up ${extra_up}
     else
         python train.py -s ${data} -r ${resolution} --gpu ${gpu} --fork ${fork} --ratio ${ratio} \
         --iterations ${iterations} --port $port -m outputs/${data}/${logdir}/$time --appearance_dim ${appearance_dim} \
         --visible_threshold ${visible_threshold}  --base_layer ${base_layer} --dist2level ${dist2level} --update_ratio ${update_ratio} \
         --progressive --init_level ${init_level} --dist_ratio ${dist_ratio} --levels ${levels}  \
-        --extra_ratio ${extra_ratio} --extra_up ${extra_up} --extra_up ${extra_up} --use_feat_bank
+        --extra_ratio ${extra_ratio} --extra_up ${extra_up}
     fi
 else
     if [ "$warmup" = "True" ]; then
@@ -57,12 +57,12 @@ else
         --iterations ${iterations} --port $port -m outputs/${data}/${logdir}/$time --appearance_dim ${appearance_dim} \
         --visible_threshold ${visible_threshold}  --base_layer ${base_layer} --dist2level ${dist2level} --update_ratio ${update_ratio} \
         --init_level ${init_level} --dist_ratio ${dist_ratio} --levels ${levels}  \
-        --extra_ratio ${extra_ratio} --extra_up ${extra_up} --extra_up ${extra_up} --use_feat_bank  
+        --extra_ratio ${extra_ratio} --extra_up ${extra_up}
     else
         python train.py -s ${data} -r ${resolution} --gpu ${gpu} --fork ${fork} --ratio ${ratio} \
         --iterations ${iterations} --port $port -m outputs/${data}/${logdir}/$time --appearance_dim ${appearance_dim} \
         --visible_threshold ${visible_threshold}  --base_layer ${base_layer} --dist2level ${dist2level} --update_ratio ${update_ratio} \
         --init_level ${init_level} --dist_ratio ${dist_ratio} --levels ${levels}  \
-        --extra_ratio ${extra_ratio} --extra_up ${extra_up} --extra_up ${extra_up} --use_feat_bank  
+        --extra_ratio ${extra_ratio} --extra_up ${extra_up}
     fi
 fi

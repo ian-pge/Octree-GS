@@ -2,7 +2,7 @@ scene="custom_car"
 exp_name="test_1"
 gpu=-1
 ratio=1
-resolution=-1
+resolution=1
 appearance_dim=0
 
 fork=2
@@ -37,5 +37,3 @@ fi
    --fork ${fork} --visible_threshold ${visible_threshold} --base_layer ${base_layer} --dist2level ${dist2level} --update_ratio ${update_ratio} \
    --progressive ${progressive} --levels ${levels} --init_level ${init_level} --dist_ratio ${dist_ratio} \
    --extra_ratio ${extra_ratio} --extra_up ${extra_up}
-
-  
