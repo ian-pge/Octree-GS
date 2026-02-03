@@ -35,6 +35,6 @@ laspy = "*"
 opencv-python = ">=4.13.0.90, <5"
 
 [tasks]
-setup-env = "python -m pip install -e submodules/diff-gaussian-rasterization -e submodules/simple-knn --no-build-isolation"
+setup-env = "python -m pip install submodules/diff-gaussian-rasterization submodules/simple-knn --no-build-isolation"
 train = { cmd = "bash single_train.sh", description = "Train OctreeGS. Usage: pixi run train --scene /abs/path/to/dataset" }
 render = { cmd = "python render.py", description = "Render output (usage: pixi run render -m <model_path>)" }
